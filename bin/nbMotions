@@ -1,0 +1,16 @@
+#! /usr/bin/env bash
+#
+# compte le nombre de motions adoptés
+
+
+n=0
+for i in $(ls pvs/)
+do
+	ni=$(cat pvs/$i | grep -ni propos | grep -i appuy | grep -i unanimit | wc -l)
+	echo "$i: $ni motions"
+	tmp=$n
+	n=`expr $tmp + $ni`
+	echo $n
+done
+echo "------------"
+echo "Total: $n motions"
