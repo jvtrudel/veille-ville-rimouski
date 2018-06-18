@@ -1,0 +1,10 @@
+#! /usr/bin/env bash
+
+pdfs_dir=$1
+out_dir=$2
+
+
+mkdir -p $2
+mkdir -p tmp
+ls $pdfs_dir/ | xargs -I % pdftotext $pdf_dir/% tmp/%
+ls tmp/ | xargs -I  % $(file -I tmp/% | cut -d"=" -f2 | xargs -I x iconv -f x -t utf-8  tmp/% > $out_dir/%)   
