@@ -1,0 +1,14 @@
+#! /usr/bin/env bash
+#
+# analyse l'unanimité des votes
+
+
+mkdir -p analyse
+echo "" > analyse/unanimes.txt
+for i in $(ls pvs/)
+do
+	echo "=======" >> analyse/unanimes.txt
+	echo " $i" >> analyse/unanimes.txt
+	echo "=======" >> analyse/unanimes.txt
+	cat pvs/$i | grep -ni propos | grep -i appuy | grep -vi unanimit >> analyse/unanimes.txt
+done

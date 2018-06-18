@@ -1,4 +1,7 @@
 #! /usr/bin/env bash
+#
+# Traite les pdf pour avoir un format utilisable
+
 
 pdfs_dir=$1
 out_dir=$2
@@ -6,5 +9,9 @@ out_dir=$2
 
 mkdir -p $2
 mkdir -p tmp
-ls $pdfs_dir/ | xargs -I % pdftotext $pdf_dir/% tmp/%
-ls tmp/ | xargs -I  % $(file -I tmp/% | cut -d"=" -f2 | xargs -I x iconv -f x -t utf-8  tmp/% > $out_dir/%)   
+ls $pdfs_dir/ | xargs -I % pdftotext $pdfs_dir/% tmp/%.txt
+for i in $(ls tmp/)
+do
+	enc=$(file -I tmp/$i | cut -d"=" -f2 )
+   iconv -f $enc -t utf-8 tmp/$i > $out_dir/$i
+done
